@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Emil Friedman | Caracas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b132b',
+                        darker: '#060c1e',
+                        navy: '#1c2541',
+                        accent: '#3a506b',
+                        cyanGlow: '#4cc9f0',
+                        iceBlue: '#e0f1ff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background-color: #0b132b; 
+            color: #e0f1ff; 
+            overflow-x: hidden;
+        }
+
+        /* Smooth scrolling offset for fixed header */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .glass-card {
+            background: rgba(28, 37, 65, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(76, 201, 240, 0.15);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        border-color 0.4s ease, 
+                        box-shadow 0.4s ease,
+                        background 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(76, 201, 240, 0.45);
+            box-shadow: 0 10px 30px -10px rgba(76, 201, 240, 0.25);
+        }
+
+        /* Active nav link style */
+        .nav-link.active-link {
+            color: #4cc9f0 !important;
+            font-weight: 700;
+        }
+        .nav-link.active-link::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #4cc9f0;
+            border-radius: 2px;
+            margin-top: 2px;
+            box-shadow: 0 0 8px #4cc9f0;
+        }
+
+        /* Ambient Glow Effect */
+        .glow-bg {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        /* Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active, .reveal-left.active, .reveal-right.active, .reveal-zoom.active {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 3.5s ease-in-out infinite; }
+
+        /* Pulse glow for buttons */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(76, 201, 240, 0.3); }
+            50% { shadow: 0 0 28px rgba(76, 201, 240, 0.6); }
+        }
+        .btn-glow { animation: pulseGlow 3s infinite; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060c1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1c2541;
+            border-radius: 4px;
+            border: 1px solid rgba(76, 201, 240, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a506b;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-cyanGlow selection:text-dark">
+
+    <!-- Ambient background glows -->
+    <div class="glow-bg bg-cyanGlow w-96 h-96 top-10 left-10"></div>
+    <div class="glow-bg bg-accent w-[500px] h-[500px] top-[40%] right-0"></div>
+    <div class="glow-bg bg-cyanGlow w-80 h-80 bottom-20 left-1/3"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 border-b border-transparent bg-darker/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                    <div class="w-11 h-11 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy shadow-[0_0_12px_rgba(76,201,240,0.3)] overflow-hidden transition-transform duration-300 group-hover:scale-105">
+                        <img src="LogoColegio.jfif" alt="Logo Colegio Emil Friedman" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('logo-text').classList.remove('hidden');">
+                        <span id="logo-text" class="hidden text-cyanGlow font-bold text-xl">EF</span>
+                    </div>
+                    <span class="font-bold text-lg sm:text-xl tracking-wider text-white group-hover:text-cyanGlow transition-colors duration-300">COLEGIO EMIL FRIEDMAN</span>
+                </div>
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="#inicio" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Inicio</a>
+                    <a href="#fundadores" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Fundadores</a>
+                    <a href="#filosofia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Filosofía</a>
+                    <a href="#modelo" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Modelo Educativo</a>
+                    <a href="#academia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Música</a>
+                    <a href="#deportes" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Deportes</a>
+                    <a href="https://forms.gle/tU52aX2aF1D6b1Gf8" target="_blank" class="bg-gradient-to-r from-accent to-cyanGlow/80 text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider hover:brightness-125 hover:shadow-[0_0_20px_rgba(76,201,240,0.4)] transition-all transform hover:-translate-y-0.5">
+                        Solicitud de Entrevista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden pt-20 scroll-mt-24">
+        <div class="absolute inset-0 z-0">
+            <img src="ImagenInicio.jfif" alt="Colegio Emil Friedman" class="w-full h-full object-cover opacity-90 transform scale-105 transition-transform duration-1000" id="hero-img" onerror="this.src='https://placehold.co/1920x1080/0b132b/4cc9f0?text=Colegio+Emil+Friedman'">
+            <div class="absolute inset-0 bg-gradient-to-b from-darker/90 via-dark/70 to-dark"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-cyanGlow/10 border border-cyanGlow/30 text-cyanGlow text-xs font-semibold uppercase tracking-widest mb-6 backdrop-blur-md">
+                <i class="fas fa-star mr-1 text-cyanGlow animate-pulse"></i> Excelencia Educativa, Musical y Deportiva
+            </div>
+            <h1 class="reveal text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-xl">
+                Colegio <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyanGlow to-accent">Emil Friedman</span>
+            </h1>
+            <p class="reveal text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Formando ciudadanos íntegros, sensibles y capacitados a través de nuestro modelo de inteligencias múltiples.
+            </p>
+            <div class="reveal flex justify-center gap-4">
+                <a href="https://forms.gle/tU52aX2aF1D6b1Gf8" target="_blank" class="bg-cyanGlow text-dark font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_rgba(76,201,240,0.6)] transition-all duration-300 transform hover:-translate-y-1 btn-glow">
+                    Solicitud de Entrevista <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll down indicator -->
+        <a href="#fundadores" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-cyanGlow transition-colors animate-bounce z-10">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </a>
+    </section>
+
+<!-- Contador de Impacto / Estadísticas Rápidas -->
+<section class="py-12 bg-darker/60 border-y border-cyanGlow/10 relative z-20">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="70">0</span>+</div>
+            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Años de Excelencia</div>
+        </div>
+        <div class="reveal">
+            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="100">0</span>%</div>
+            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Formación Integral</div>
+        </div>
+        <div class="reveal">
+            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="15">0</span>+</div>
+            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Orquestas y Coros</div>
+        </div>
+        <div class="reveal">
+            <!-- Configurado exactamente en 4 sin el signo '+' -->
+            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="4">0</span></div>
+            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Disciplinas Deportivas</div>
+        </div>
+    </div>
+</section>
+
+    <!-- Fundadores -->
+    <section id="fundadores" class="py-24 relative bg-darker scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Legado Institucional</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Nuestros Fundadores</h2>
+                <div class="w-16 h-1 bg-cyanGlow/40 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Emil Friedman -->
+                <div class="reveal-left glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/50 transition-all duration-500 flex flex-col">
+                    <div class="h-[360px] sm:h-[400px] overflow-hidden relative bg-navy/80">
+                        <!-- Main face-centered image -->
+                        <img src="abueloFriedman.jfif" alt="Emil Friedman" class="w-full h-full object-cover object-[center_15%] filter contrast-105 group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x600/1c2541/4cc9f0?text=Maestro+Emil+Friedman'">
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy via-navy/50 to-transparent z-20 pointer-events-none"></div>
+                        <span class="absolute top-4 left-4 z-30 bg-navy/90 text-cyanGlow border border-cyanGlow/30 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-md">
+                            1908 - Fundador
+                        </span>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3 group-hover:text-cyanGlow transition-colors">
+                                <i class="fas fa-violin text-cyanGlow text-xl transform group-hover:rotate-12 transition-transform"></i> Maestro Emil Friedman
+                            </h3>
+                            <p class="text-gray-300 text-sm leading-relaxed text-justify font-light">
+                                En el seno de una familia Praguense nació, un 24 de mayo del 1908, Emil Friedman. Vivió su niñez y adolescencia estudiando de manera vehemente la música, conduciéndolo a obtener a sus 17 años el título de Profesor Ejecutante de Violín, otorgado por el Conservatorio de Música de Praga. La década de los años 30 fue muy prolífera y de cambios profundos en la vida de Friedman. El intelecto y el sentimiento se desarrollaron al unísono.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elvia Argüello -->
+                <div class="reveal-right glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/50 transition-all duration-500 flex flex-col">
+                    <div class="h-[360px] sm:h-[400px] overflow-hidden relative bg-navy/80">
+                        <!-- Main face-centered image -->
+                        <img src="ElviaFriedman.jfif" alt="Elvia Argüello" class="w-full h-full object-cover object-[center_15%] filter contrast-105 group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x600/1c2541/4cc9f0?text=Prof.+Elvia+Arguello'">
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy via-navy/50 to-transparent z-20 pointer-events-none"></div>
+                        <span class="absolute top-4 left-4 z-30 bg-navy/90 text-cyanGlow border border-cyanGlow/30 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-md">
+                            1925 - Co-Fundadora
+                        </span>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyanGlow transition-colors">
+                                Elvia Argüello
+                            </h3>
+                            <p class="text-gray-300 text-sm leading-relaxed text-justify font-light">
+                                Un 5 de julio de 1925 nació en Maracaibo-Venezuela, Elvia Elisa Arguello. Su niñez se desarrolló en la ciudad de Valera , Estado Trujillo, donde cursó su primaria. De vuelta a Maracaibo estudió paralelamente en el Liceo Udon Pérez y en la Escuela Normal, esta última con el sueño de convertirse en maestra. Recibe también la formación religiosa en el Instituto Bíblico Ebenezer convirtiéndose en maestra de Escuela Bíblica. A la vez inicia sus lecciones de piano, desarrollando así sus inclinaciones musicales.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filosofía Institucional -->
+    <section id="filosofia" class="py-24 relative bg-dark scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Fundamentos</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Filosofía Institucional</h2>
+                <div class="w-16 h-1 bg-cyanGlow/40 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Misión -->
+                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1">
+                    <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
+                            <i class="fas fa-compass"></i>
+                        </div> 
+                        Misión
+                    </h3>
+                    <p class="text-gray-300 text-sm leading-relaxed text-justify">
+                        Desarrollar el máximo potencial de los estudiantes, a partir del despliegue de las inteligencias múltiples, haciendo énfasis en la música y en el deporte; en la optimización y profundización del conocimiento, la creatividad, intuición, independencia.
+                    </p>
+                </div>
+
+                <!-- Visión -->
+                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1" style="transition-delay: 150ms;">
+                    <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
+                            <i class="fas fa-eye"></i>
+                        </div> 
+                        Visión
+                    </h3>
+                    <p class="text-gray-300 text-sm leading-relaxed text-justify">
+                        Ser la primera opción de las familias en cuanto a la formación integral con enfoque humanista de sus hijos, haciendo énfasis en el desarrollo de las inteligencias múltiples con preponderancia en la música y en el deporte, manteniendo altos estándares de calidad en todo el quehacer educativo.
+                    </p>
+                </div>
+
+                <!-- Objetivos -->
+                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1">
+                    <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
+                            <i class="fas fa-bullseye"></i>
+                        </div> 
+                        Objetivos
+                    </h3>
+                    <p class="text-gray-300 text-sm leading-relaxed text-justify">
+                        Formar individuos integrales, a través del desarrollo de las inteligencias múltiples con énfasis en la música y el deporte; independientes, responsables y comprometidos con la construcción y promoción de una sociedad libre.
+                    </p>
+                </div>
+
+                <!-- Valores -->
+                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1" style="transition-delay: 150ms;">
+                    <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
+                            <i class="fas fa-gem"></i>
+                        </div> 
+                        Valores
+                    </h3>
+                    <p class="text-gray-300 text-sm leading-relaxed text-justify">
+                        Los valores constituyen un principio de conducta, una manera de ser y hacer, que se expresan en actos concretos de la vida. Implican la necesidad de garantizar al educando la capacidad de analizar éticamente los acontecimientos y sucesos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modelo Educativo -->
+    <section id="modelo" class="py-24 bg-darker relative scroll-mt-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="reveal">
+                <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Propuesta Pedagógica</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-8">Modelo Educativo</h2>
+            </div>
+            
+            <p class="reveal text-gray-300 text-base md:text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-justify sm:text-center font-light">
+                Nuestro modelo educativo, basado en una concepción humanística y bajo un enfoque de educación integral, muestra el diseño, la estructura y los componentes esenciales del proceso formativo, que sirve de guía para la acción docente, desde Preescolar hasta Media General mención Ciencias.
+                <br/><br/>
+                El pensamiento del Maestro Emil Friedman, permea cada uno de nuestros actos pedagógicos y educativos.
+            </p>
+
+            <div class="reveal-zoom glass-card p-10 rounded-3xl border border-cyanGlow/30 relative overflow-hidden group hover:shadow-[0_0_35px_rgba(76,201,240,0.2)]">
+                <i class="fas fa-quote-left text-6xl text-cyanGlow/15 absolute top-6 left-6 group-hover:scale-110 transition-transform"></i>
+                <blockquote class="text-xl md:text-2xl font-light italic text-white leading-relaxed relative z-10">
+                    “La educación debe desarrollar el sentimiento a través de las artes de la creación de la fantasía y de la sensibilidad, el intelecto humano a través de la ciencia y el cuerpo con los deportes”
+                </blockquote>
+                <div class="mt-6 font-semibold text-cyanGlow text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                    <span class="w-8 h-0.5 bg-cyanGlow/40"></span>
+                    Maestro Emil Friedman
+                    <span class="w-8 h-0.5 bg-cyanGlow/40"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academia de Música -->
+    <section id="academia" class="py-24 bg-dark relative scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal-left rounded-2xl overflow-hidden glass-card p-2 group">
+                    <div class="overflow-hidden rounded-xl relative">
+                        <img src="CoroColegio.jfif" alt="Orquestas y Coros Emil Friedman" class="w-full h-auto rounded-xl object-cover transform group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Orquestas+y+Coros'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darker/60 to-transparent"></div>
+                    </div>
+                </div>
+                <div class="reveal-right">
+                    <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Formación Artística</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">Academia de Música</h2>
+                    <p class="text-gray-300 text-base leading-relaxed mb-8 text-justify font-light">
+                        Con la fundación del Kindergarten Musical Emil Friedman se inicia la Academia de Música; en ella los estudiantes desarrollan y cultivan su talento musical con el estudio de algún instrumento que le permite integrarse activamente a algunas de las orquestas existentes según su nivel de adelanto.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-guitar text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Orquestas</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-users text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Coros</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-drum text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Ensambles</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-graduation-cap text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Conservatorio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desarrollo Deportivo -->
+    <section id="deportes" class="py-24 bg-darker relative scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal-left order-2 lg:order-1">
+                    <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Salud y Disciplina</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">Desarrollo Deportivo</h2>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-8 text-justify font-light">
+                        El Colegio siendo consciente de esta necesidad, estimula a diario a los niños y jóvenes, que hacen vida en sus espacios, a lograr estilos saludables de desarrollo, a través de las diversas actividades deportivas que se realizan a lo largo de la jornada diaria, no solo durante las clases regulares de Educación Física, sino también de disciplinas deportivas extracurriculares, cuyos equipos alcanzan altos niveles de competitividad, gracias no solo al esfuerzo de sus integrantes, sino también a valores como el compañerismo, el trabajo de equipo, responsabilidad y compromiso que se desarrollan de manera espontánea a lo largo de los entrenamientos y que por razones obvias forman parte de la filosofía de la institución.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+    <i class="fas fa-futbol text-cyanGlow text-lg"></i>
+    <span class="text-white font-medium text-sm">Fútbol</span>
+</div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-swimmer text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Natación</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-basketball-ball text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Baloncesto</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                            <i class="fas fa-volleyball-ball text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Voleibol</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-right order-1 lg:order-2 rounded-2xl overflow-hidden glass-card p-2 group">
+                    <div class="overflow-hidden rounded-xl relative">
+                        <img src="PiscinaColegio.jfif" alt="Instalaciones Deportivas" class="w-full h-auto rounded-xl object-cover transform group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Piscina+y+Deportes'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darker/60 to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer y Contacto -->
+    <footer class="bg-darker border-t border-cyanGlow/10 pt-16 pb-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                <!-- Branding -->
+                <div class="reveal">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy overflow-hidden">
+                            <img src="LogoColegio.jfif" alt="Logo Colegio Emil Friedman" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('footer-logo-text').classList.remove('hidden');">
+                            <span id="footer-logo-text" class="hidden text-cyanGlow font-bold text-xl">EF</span>
+                        </div>
+                        <span class="font-bold text-lg text-white">COLEGIO EMIL FRIEDMAN</span>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed font-light">
+                        Institución educativa privada comprometida con la formación integral y el desarrollo de las inteligencias múltiples.
+                    </p>
+                </div>
+
+                <!-- Contacto -->
+                <div class="reveal space-y-3" style="transition-delay: 100ms;">
+                    <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">Contacto</h4>
+                    <p class="text-gray-300 text-xs flex items-start gap-2">
+                        <i class="fas fa-phone-alt text-cyanGlow mt-0.5"></i>
+                        <span>+58-212-976.64.75 / +58-212-976.29.44<br/><span class="text-gray-400">Lunes a Viernes (8am-4pm)</span></span>
+                    </p>
+                    <p class="text-gray-300 text-xs flex items-center gap-2">
+                        <i class="fas fa-envelope text-cyanGlow"></i>
+                        <a href="mailto:colegio@emilfriedman.com.ve" class="hover:text-cyanGlow transition">colegio@emilfriedman.com.ve</a>
+                    </p>
+                </div>
+
+                <!-- Dirección -->
+                <div class="reveal" style="transition-delay: 200ms;">
+                    <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">Ubicación</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed flex items-start gap-2 font-light">
+                        <i class="fas fa-map-marker-alt text-cyanGlow mt-0.5"></i>
+                        <span>Calle Emil Friedman, Urb. Los Campitos Ruta A, Caracas 1080, Miranda - Venezuela</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-cyanGlow/10 pt-6 text-center">
+                <p class="text-gray-500 text-xs">
+                    &copy; 2026 Colegio Emil Friedman. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Floating Toggle -->
+    <button id="chatbot-toggle" aria-label="Abrir asistente de ayuda" class="fixed bottom-6 right-6 w-14 h-14 bg-cyanGlow text-dark rounded-full shadow-[0_0_20px_rgba(76,201,240,0.5)] flex items-center justify-center text-xl z-50 hover:bg-white hover:scale-110 transition-all duration-300 animate-float">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <!-- Chatbot Modal -->
+    <div id="chatbot-modal" class="fixed bottom-24 right-6 w-80 sm:w-96 bg-darker border border-cyanGlow/30 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col hidden transform transition-all duration-300">
+        <div class="bg-navy p-4 flex justify-between items-center border-b border-cyanGlow/10">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-cyanGlow text-dark flex items-center justify-center font-bold text-xs">EF</div>
+                <div>
+                    <span class="text-white font-medium text-sm block">Atención Emil Friedman</span>
+                    <span class="text-[10px] text-cyanGlow flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> En línea</span>
+                </div>
+            </div>
+            <button id="chatbot-close" class="text-gray-400 hover:text-white transition"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div id="chatbot-messages" class="h-72 p-4 overflow-y-auto flex flex-col gap-3 text-xs bg-dark/70">
+            <div class="bg-navy text-gray-200 p-3 rounded-xl max-w-[85%] border border-cyanGlow/10 shadow-sm">
+                ¡Hola! Bienvenido al Colegio Emil Friedman. ¿En qué información estás interesado? Puedes preguntarme sobre admisión, música, deportes o contacto.
+            </div>
+        </div>
+        
+        <!-- Opciones rápidas de consulta -->
+        <div class="px-3 py-2 bg-navy/60 border-t border-cyanGlow/10 flex flex-wrap gap-1.5">
+            <button onclick="sendQuickMessage('Inscripción y Entrevista')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Entrevista</button>
+            <button onclick="sendQuickMessage('Música u Orquesta')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Música</button>
+            <button onclick="sendQuickMessage('Deportes')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Deportes</button>
+            <button onclick="sendQuickMessage('Ubicación y Teléfonos')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Ubicación</button>
+        </div>
+
+        <form id="chatbot-form" class="p-3 bg-navy border-t border-cyanGlow/10 flex gap-2">
+            <input type="text" id="chatbot-input" placeholder="Escribe tu consulta..." class="flex-grow bg-dark border border-cyanGlow/20 text-white text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-cyanGlow transition">
+            <button type="submit" class="bg-cyanGlow text-dark px-3.5 py-2 rounded-lg text-xs font-bold hover:bg-white transition"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // 1. NAVBAR SCROLL EFFECT AND ACTIVE LINK HIGHLIGHTING
+        const navbar = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            // Navbar background blur update
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-darker/40', 'border-transparent');
+                navbar.classList.add('bg-darker/95', 'border-cyanGlow/15', 'shadow-lg');
+            } else {
+                navbar.classList.add('bg-darker/40', 'border-transparent');
+                navbar.classList.remove('bg-darker/95', 'border-cyanGlow/15', 'shadow-lg');
+            }
+
+            // Scrollspy / Highlight Active Link
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active-link');
+                }
+            });
+        });
+
+        // 2. SCROLL REVEAL ANIMATIONS (IntersectionObserver)
+        const observerOptions = {
+            root: null,
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger counters if contained in target
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => runCounter(counter));
+
+                    if (entry.target.classList.contains('counter')) {
+                        runCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .counter').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // 3. ANIMATED NUMBER COUNTERS
+        function runCounter(counterEl) {
+            if (counterEl.dataset.started) return;
+            counterEl.dataset.started = 'true';
+
+            const target = parseInt(counterEl.getAttribute('data-target'));
+            const duration = 1800;
+            const stepTime = 20;
+            const totalSteps = duration / stepTime;
+            const increment = target / totalSteps;
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    counterEl.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    counterEl.textContent = Math.ceil(current);
+                }
+            }, stepTime);
+        }
+
+        // 4. PARALLAX EFFECT FOR HERO IMAGE
+        window.addEventListener('scroll', () => {
+            const heroImg = document.getElementById('hero-img');
+            if (heroImg && window.scrollY < window.innerHeight) {
+                heroImg.style.transform = `scale(1.05) translateY(${window.scrollY * 0.2}px)`;
+            }
+        });
+
+        // 5. CHATBOT FUNCTIONALITY
+        const toggleBtn = document.getElementById('chatbot-toggle');
+        const modal = document.getElementById('chatbot-modal');
+        const closeBtn = document.getElementById('chatbot-close');
+        const form = document.getElementById('chatbot-form');
+        const input = document.getElementById('chatbot-input');
+        const messages = document.getElementById('chatbot-messages');
+
+        toggleBtn.addEventListener('click', () => modal.classList.toggle('hidden'));
+        closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+
+        function getBotResponse(userText) {
+            const text = userText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            if (text.match(/hola|buenas|saludos|que tal/)) {
+                return '¡Hola! Bienvenido al servicio de atención del Colegio Emil Friedman. ¿En qué información puedo ayudarte hoy? (Inscripciones, Música, Deportes, Ubicación...)';
+            }
+            if (text.match(/entrevista|inscripcion|admision|cupo|ingreso|solicitud/)) {
+                return 'Para solicitar una entrevista de admisión, puedes hacer clic en el botón "Solicitud de Entrevista" en el menú principal o completar nuestro formulario en línea.';
+            }
+            if (text.match(/musica|orquesta|coro|instrumento|violin|piano|conservatorio/)) {
+                return 'En nuestra Academia de Música los estudiantes desarrollan su talento ejecutando instrumentos e integrándose a nuestros Coros, Orquestas y Ensambles desde el Kindergarten Musical.';
+            }
+            if (text.match(/deporte|futbol|natacion|piscina|baloncesto|basquet|voleibol|ejercicio/)) {
+                return 'Ofrecemos diversas disciplinas deportivas extracurriculares y curriculares como Fútbol, Natación (en piscina propia), Baloncesto y Voleibol para el desarrollo físico e integral.';
+            }
+            if (text.match(/donde|ubicacion|direccion|llegar|quedan|queda|zona/)) {
+                return 'Estamos ubicados en: Calle Emil Friedman, Urb. Los Campitos Ruta A, Caracas 1080, Miranda - Venezuela.';
+            }
+            if (text.match(/telefono|contacto|correo|email|numero|llamar|horario/)) {
+                return 'Puedes contactarnos al +58-212-976.64.75 o al +58-212-976.29.44 de Lunes a Viernes (8:00 AM a 4:00 PM). Correo: colegio@emilfriedman.com.ve';
+            }
+            if (text.match(/fundador|emil|elvia|historia/)) {
+                return 'El colegio fue fundado por el Maestro Emil Friedman y la Prof. Elvia Argüello, combinando la enseñanza académica con la música y el deporte.';
+            }
+
+            return 'Gracias por tu mensaje. Para detalles específicos sobre tu consulta, te sugerimos hacer clic en "Solicitud de Entrevista" o llamar directamente al +58-212-976.64.75.';
+        }
+
+        function processMessage(text) {
+            if (!text) return;
+
+            // User message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'bg-cyanGlow/20 text-white p-3 rounded-xl max-w-[85%] self-end border border-cyanGlow/30 shadow-sm';
+            userMsg.textContent = text;
+            messages.appendChild(userMsg);
+
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'bg-navy text-gray-400 p-2.5 rounded-xl max-w-[45%] border border-cyanGlow/10 italic text-[11px] animate-pulse';
+            typingIndicator.textContent = 'Escribiendo...';
+            messages.appendChild(typingIndicator);
+            messages.scrollTop = messages.scrollHeight;
+
+            setTimeout(() => {
+                typingIndicator.remove();
+                const botMsg = document.createElement('div');
+                botMsg.className = 'bg-navy text-gray-200 p-3 rounded-xl max-w-[85%] border border-cyanGlow/10 shadow-sm';
+                botMsg.textContent = getBotResponse(text);
+                messages.appendChild(botMsg);
+                messages.scrollTop = messages.scrollHeight;
+            }, 600);
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            processMessage(input.value.trim());
+        });
+
+        function sendQuickMessage(msg) {
+            processMessage(msg);
+        }
+    </script>
+</body>
+</html>
