@@ -110,35 +110,39 @@
 <body class="antialiased font-sans selection:bg-cyanGlow selection:text-dark">
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-40 glass-card border-b border-cyanGlow/10 bg-darker/90 backdrop-blur-md transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy shadow-[0_0_10px_rgba(76,201,240,0.3)] overflow-hidden">
-                        <img src="LogoColegio.jfif" alt="Logo Colegio Emil Friedman" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('logo-text').classList.remove('hidden');">
-                        <span id="logo-text" class="hidden text-cyanGlow font-bold text-xl">EF</span>
-                    </div>
-                    <span class="font-bold text-lg sm:text-xl tracking-wider text-white">COLEGIO EMIL FRIEDMAN</span>
+<nav id="navbar" class="fixed w-full z-40 glass-card border-b border-cyanGlow/10 bg-darker/90 backdrop-blur-md transition-all duration-300">
+    <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo y Nombre del Colegio -->
+            <div class="flex-shrink-0 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy shadow-[0_0_10px_rgba(76,201,240,0.3)] overflow-hidden">
+                    <img src="LogoColegio.jfif" alt="Logo Colegio Emil Friedman" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('logo-text').classList.remove('hidden');">
+                    <span id="logo-text" class="hidden text-cyanGlow font-bold text-xl">EF</span>
                 </div>
-                <div class="hidden lg:flex space-x-6 items-center">
-                    <a href="#inicio" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Inicio</a>
-                    <a href="#fundadores" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Fundadores</a>
-                    <a href="#filosofia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Filosofía</a>
-                    <a href="#modelo" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Modelo Educativo</a>
-                    <a href="#academia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Música</a>
-                    <a href="#deportes" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Deportes</a>
-                    <button onclick="openInterviewModal()" class="bg-gradient-to-r from-accent to-cyanGlow/80 text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider hover:brightness-125 transition-all shadow-lg hover:scale-105">
-                        Solicitud de Entrevista
-                    </button>
-                </div>
+                <span class="font-bold text-base sm:text-lg tracking-wider text-white whitespace-nowrap">COLEGIO EMIL FRIEDMAN</span>
+            </div>
+            
+            <!-- Enlaces de Navegación -->
+            <div class="hidden xl:flex items-center gap-4 2xl:gap-6">
+                <a href="#inicio" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Inicio</a>
+                <a href="#fundadores" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Fundadores</a>
+                <a href="#filosofia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Filosofía</a>
+                <a href="#modelo" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Modelo Educativo</a>
+                <a href="#academia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Música</a>
+                <a href="#deportes" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Deportes</a>
+                <a href="#campus" class="nav-link text-gray-300 hover:text-cyanGlow transition text-[11px] uppercase tracking-wider font-medium py-1 whitespace-nowrap">Campus</a>
+                <button onclick="openInterviewModal()" class="bg-gradient-to-r from-accent to-cyanGlow/80 text-white px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider hover:brightness-125 transition-all shadow-lg hover:scale-105 whitespace-nowrap">
+                    Solicitud Entrevista
+                </button>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <section id="inicio" class="scroll-mt-24 relative h-screen flex items-center justify-center overflow-hidden pt-20">
         <div class="absolute inset-0 z-0">
-            <img id="hero-bg" src="ImagenInicio.jfif" alt="Colegio Emil Friedman" class="w-full h-full object-cover opacity-35 transition-transform duration-75 ease-out" onerror="this.src='https://placehold.co/1920x1080/0b132b/4cc9f0?text=Colegio+Emil+Friedman'">
+            <img id="hero-bg" src="ImagenInicio.jfif" alt="Colegio Emil Friedman" class="w-full h-full object-cover opacity-90 transition-transform duration-75 ease-out" onerror="this.src='https://placehold.co/1920x1080/0b132b/4cc9f0?text=Colegio+Emil+Friedman'">
             <div class="absolute inset-0 bg-gradient-to-b from-darker/90 via-dark/70 to-dark"></div>
         </div>
         
@@ -356,7 +360,7 @@
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
-                            <i class="fas fa-football-ball text-cyanGlow text-lg"></i>
+                            <i class="fas fa-futbol text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Fútbol</span>
                         </div>
                         <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
@@ -376,6 +380,73 @@
                 <div class="order-1 lg:order-2 rounded-2xl overflow-hidden glass-card p-2 reveal-right">
                     <img src="PiscinaColegio.jfif" alt="Instalaciones Deportivas" class="w-full h-auto rounded-xl object-cover hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Piscina+y+Deportes'">
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Campus y Fotos -->
+    <section id="campus" class="scroll-mt-24 py-24 bg-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Nuestras Instalaciones</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Conoce Nuestro Campus</h2>
+                <div class="w-16 h-1 bg-cyanGlow/40 mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-300 text-sm max-w-2xl mx-auto mt-4 font-light leading-relaxed">
+                    Un entorno natural de excelencia diseñado para inspirar el aprendizaje académico, la expresión artística y la práctica deportiva.
+                </p>
+            </div>
+
+            <!-- Galería de Fotos del Campus -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Foto 1: Edificio Principal -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/40 transition-all duration-500 reveal-left">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="SalonColegio.jfif" alt="Edificaciones del Campus" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Edificio+Principal'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-80"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fas fa-building text-cyanGlow"></i> Aulas y Pabellones
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Espacios académicos modernos equipados para la enseñanza integral de nuestros estudiantes desde inicial hasta bachillerato.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Foto 2: Auditorio / Sala de Conciertos -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/40 transition-all duration-500 reveal">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="TeatroColegio.jfif" alt="Auditorio y Salas de Música" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Auditorio+y+Salas'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-80"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fas fa-music text-cyanGlow"></i> Auditorio y Ensayos
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Escenario y salones acoplados acústicamente para las presentaciones orquestales, corales y recitales musicales.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Foto 3: Áreas Verdes -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/40 transition-all duration-500 reveal-right">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="AreasVerdesColegio.jfif" alt="Áreas Verdes Los Campitos" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Areas+Verdes'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-80"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fas fa-tree text-cyanGlow"></i> Entorno Natural
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Amplias zonas verdes e instalaciones situadas en la Urbanización Los Campitos que promueven un ambiente fresco y seguro.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -429,7 +500,7 @@
         </div>
     </footer>
 
-    <!-- MODAL DE FORMULARIO DE ENTREVISTA (DENTRO DE LA MISMA PÁGINA) -->
+    <!-- MODAL DE FORMULARIO DE ENTREVISTA -->
     <div id="interview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-darker/80 backdrop-blur-md hidden transition-all duration-300">
         <div class="relative w-full max-w-2xl bg-darker border border-cyanGlow/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
             
@@ -454,7 +525,7 @@
                 <div id="step-indicator-4" class="flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-navy border border-gray-500 flex items-center justify-center font-bold text-[10px]">4</span> Adicionales</div>
             </div>
 
-            <!-- Contenido del Formulario (Scrollable) -->
+            <!-- Contenido del Formulario -->
             <div id="modal-scroll-container" class="p-6 overflow-y-auto flex-grow space-y-6">
                 
                 <!-- Advertencia Inicial -->
@@ -479,9 +550,9 @@
                             <label class="block text-xs font-semibold text-gray-300 mb-1">Año escolar al que aspira ingresar al colegio *</label>
                             <select id="ano_escolar" class="form-input">
                                 <option value="">Elegir año escolar...</option>
-                                <option value="2024-2025">2024 - 2025</option>
-                                <option value="2025-2026">2025 - 2026</option>
-                                <option value="2026-2027">2026 - 2027</option>
+                                <option value="2027-2028">2027- 2028</option>
+                                <option value="2028-2029">2028 - 2029</option>
+                                <option value="2029-2030">2029 - 2030</option>
                             </select>
                             <span class="error-msg" id="err-ano_escolar">Por favor seleccione un año escolar.</span>
                         </div>
@@ -751,6 +822,7 @@
             <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Admisión</button>
             <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Música</button>
             <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Deportes</button>
+            <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Campus</button>
             <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Ubicación</button>
         </div>
 
@@ -760,7 +832,7 @@
         </form>
     </div>
 
-    <!-- Script de Animaciones, ScrollSpy, Formulario e Interacciones -->
+    <!-- Scripts -->
     <script>
         // --- 1. LÓGICA DEL MODAL Y FORMULARIO MULTI-PASO ---
         let currentStep = 1;
@@ -810,7 +882,6 @@
                 btnNext.className = 'bg-cyanGlow text-dark hover:bg-white px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-[0_0_15px_rgba(76,201,240,0.3)]';
             }
 
-            // Scroll suave hacia la parte superior del formulario al cambiar de paso
             const container = document.getElementById('modal-scroll-container');
             if (container) container.scrollTop = 0;
         }
@@ -898,7 +969,6 @@
                     currentStep++;
                     updateStepUI();
                 } else {
-                    // Enviar formulario (Paso Final)
                     document.getElementById('admission-form').classList.add('hidden');
                     document.getElementById('modal-footer').classList.add('hidden');
                     document.getElementById('success-screen').classList.remove('hidden');
@@ -913,7 +983,6 @@
             }
         }
 
-        // Detectores de eventos para limpiar errores en tiempo real conforme el usuario escribe
         document.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('input', () => setError(input.id, false));
             input.addEventListener('change', () => setError(input.id, false));
@@ -948,7 +1017,7 @@
 
         document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
-        // --- 3. SCROLLSPY (RESALTADO NAVEGACIÓN) ---
+        // --- 3. SCROLLSPY ---
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -999,6 +1068,9 @@
             }
             if (text.match(/deporte|futbol|natacion|piscina|baloncesto|basquet|voleibol|ejercicio/)) {
                 return 'Ofrecemos disciplinas como Fútbol, Natación (en piscina propia), Baloncesto y Voleibol para el desarrollo físico y saludable de nuestros alumnos.';
+            }
+            if (text.match(/campus|instalaciones|fotos|galeria|infraestructura|aulas|edificio/)) {
+                return 'Puedes explorar las instalaciones de nuestro campus en la sección "Campus" del sitio web, que incluye detalles sobre las aulas, áreas musicales y zonas verdes.';
             }
             if (text.match(/donde|ubicacion|direccion|llegar|quedan|queda|zona/)) {
                 return 'Estamos ubicados en: Calle Emil Friedman, Urb. Los Campitos Ruta A, Caracas 1080, Miranda - Venezuela.';
