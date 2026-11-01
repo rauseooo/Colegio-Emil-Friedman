@@ -31,212 +31,159 @@
         }
     </script>
     <style>
-        body { 
-            background-color: #0b132b; 
-            color: #e0f1ff; 
-            overflow-x: hidden;
-        }
-
-        /* Smooth scrolling offset for fixed header */
-        html {
-            scroll-behavior: smooth;
-        }
-
+        body { background-color: #0b132b; color: #e0f1ff; }
         .glass-card {
             background: rgba(28, 37, 65, 0.45);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(76, 201, 240, 0.15);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        border-color 0.4s ease, 
-                        box-shadow 0.4s ease,
-                        background 0.4s ease;
         }
-
-        .glass-card:hover {
-            border-color: rgba(76, 201, 240, 0.45);
-            box-shadow: 0 10px 30px -10px rgba(76, 201, 240, 0.25);
-        }
-
-        /* Active nav link style */
-        .nav-link.active-link {
-            color: #4cc9f0 !important;
-            font-weight: 700;
-        }
-        .nav-link.active-link::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #4cc9f0;
-            border-radius: 2px;
-            margin-top: 2px;
-            box-shadow: 0 0 8px #4cc9f0;
-        }
-
-        /* Ambient Glow Effect */
-        .glow-bg {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            pointer-events: none;
-            opacity: 0.15;
-        }
-
-        /* Scroll Animation Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(35px);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-40px);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal-zoom {
-            opacity: 0;
-            transform: scale(0.92);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal.active, .reveal-left.active, .reveal-right.active, .reveal-zoom.active {
-            opacity: 1;
-            transform: translateY(0) translateX(0) scale(1);
-        }
-
-        /* Floating Animation */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
-        .animate-float { animation: float 3.5s ease-in-out infinite; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
 
-        /* Pulse glow for buttons */
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(76, 201, 240, 0.3); }
-            50% { shadow: 0 0 28px rgba(76, 201, 240, 0.6); }
+        /* Estilos de animación al hacer scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
         }
-        .btn-glow { animation: pulseGlow 3s infinite; }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Enlace activo en navegación */
+        .nav-link.active-link {
+            color: #4cc9f0;
+            border-bottom: 2px solid #4cc9f0;
+        }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Estilos de campos de formulario */
+        .form-input {
+            width: 100%;
+            background-color: rgba(11, 19, 43, 0.7);
+            border: 1px solid rgba(76, 201, 240, 0.25);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: #ffffff;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
         }
-        ::-webkit-scrollbar-track {
-            background: #060c1e;
+        .form-input:focus {
+            outline: none;
+            border-color: #4cc9f0;
+            box-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #1c2541;
-            border-radius: 4px;
-            border: 1px solid rgba(76, 201, 240, 0.2);
+        .form-input.error {
+            border-color: #f87171 !important;
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.4) !important;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3a506b;
+        .error-msg {
+            color: #f87171;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
         }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-cyanGlow selection:text-dark">
 
-    <!-- Ambient background glows -->
-    <div class="glow-bg bg-cyanGlow w-96 h-96 top-10 left-10"></div>
-    <div class="glow-bg bg-accent w-[500px] h-[500px] top-[40%] right-0"></div>
-    <div class="glow-bg bg-cyanGlow w-80 h-80 bottom-20 left-1/3"></div>
-
     <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 border-b border-transparent bg-darker/40 backdrop-blur-md">
+    <nav id="navbar" class="fixed w-full z-40 glass-card border-b border-cyanGlow/10 bg-darker/90 backdrop-blur-md transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-                    <div class="w-11 h-11 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy shadow-[0_0_12px_rgba(76,201,240,0.3)] overflow-hidden transition-transform duration-300 group-hover:scale-105">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy shadow-[0_0_10px_rgba(76,201,240,0.3)] overflow-hidden">
                         <img src="LogoColegio.jfif" alt="Logo Colegio Emil Friedman" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('logo-text').classList.remove('hidden');">
                         <span id="logo-text" class="hidden text-cyanGlow font-bold text-xl">EF</span>
                     </div>
-                    <span class="font-bold text-lg sm:text-xl tracking-wider text-white group-hover:text-cyanGlow transition-colors duration-300">COLEGIO EMIL FRIEDMAN</span>
+                    <span class="font-bold text-lg sm:text-xl tracking-wider text-white">COLEGIO EMIL FRIEDMAN</span>
                 </div>
                 <div class="hidden lg:flex space-x-6 items-center">
-                    <a href="#inicio" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Inicio</a>
-                    <a href="#fundadores" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Fundadores</a>
-                    <a href="#filosofia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Filosofía</a>
-                    <a href="#modelo" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Modelo Educativo</a>
-                    <a href="#academia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Música</a>
-                    <a href="#deportes" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium hover:scale-105 transform inline-block py-1">Deportes</a>
-                    <a href="https://forms.gle/tU52aX2aF1D6b1Gf8" target="_blank" class="bg-gradient-to-r from-accent to-cyanGlow/80 text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider hover:brightness-125 hover:shadow-[0_0_20px_rgba(76,201,240,0.4)] transition-all transform hover:-translate-y-0.5">
+                    <a href="#inicio" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Inicio</a>
+                    <a href="#fundadores" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Fundadores</a>
+                    <a href="#filosofia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Filosofía</a>
+                    <a href="#modelo" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Modelo Educativo</a>
+                    <a href="#academia" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Música</a>
+                    <a href="#deportes" class="nav-link text-gray-300 hover:text-cyanGlow transition text-xs uppercase tracking-wider font-medium py-1">Deportes</a>
+                    <button onclick="openInterviewModal()" class="bg-gradient-to-r from-accent to-cyanGlow/80 text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider hover:brightness-125 transition-all shadow-lg hover:scale-105">
                         Solicitud de Entrevista
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden pt-20 scroll-mt-24">
+    <section id="inicio" class="scroll-mt-24 relative h-screen flex items-center justify-center overflow-hidden pt-20">
         <div class="absolute inset-0 z-0">
-            <img src="ImagenInicio.jfif" alt="Colegio Emil Friedman" class="w-full h-full object-cover opacity-90 transform scale-105 transition-transform duration-1000" id="hero-img" onerror="this.src='https://placehold.co/1920x1080/0b132b/4cc9f0?text=Colegio+Emil+Friedman'">
+            <img id="hero-bg" src="ImagenInicio.jfif" alt="Colegio Emil Friedman" class="w-full h-full object-cover opacity-35 transition-transform duration-75 ease-out" onerror="this.src='https://placehold.co/1920x1080/0b132b/4cc9f0?text=Colegio+Emil+Friedman'">
             <div class="absolute inset-0 bg-gradient-to-b from-darker/90 via-dark/70 to-dark"></div>
         </div>
         
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-cyanGlow/10 border border-cyanGlow/30 text-cyanGlow text-xs font-semibold uppercase tracking-widest mb-6 backdrop-blur-md">
-                <i class="fas fa-star mr-1 text-cyanGlow animate-pulse"></i> Excelencia Educativa, Musical y Deportiva
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto reveal active">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-cyanGlow/10 border border-cyanGlow/30 text-cyanGlow text-xs font-semibold uppercase tracking-widest mb-6">
+                Excelencia Educativa, Musical y Deportiva
             </div>
-            <h1 class="reveal text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-xl">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-xl">
                 Colegio <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyanGlow to-accent">Emil Friedman</span>
             </h1>
-            <p class="reveal text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
                 Formando ciudadanos íntegros, sensibles y capacitados a través de nuestro modelo de inteligencias múltiples.
             </p>
-            <div class="reveal flex justify-center gap-4">
-                <a href="https://forms.gle/tU52aX2aF1D6b1Gf8" target="_blank" class="bg-cyanGlow text-dark font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_rgba(76,201,240,0.6)] transition-all duration-300 transform hover:-translate-y-1 btn-glow">
-                    Solicitud de Entrevista <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                </a>
+            <div class="flex justify-center gap-4">
+                <button onclick="openInterviewModal()" class="bg-cyanGlow text-dark font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_rgba(76,201,240,0.6)] transition-all hover:-translate-y-1">
+                    Solicitud de Entrevista
+                </button>
             </div>
         </div>
-
-        <!-- Scroll down indicator -->
-        <a href="#fundadores" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-cyanGlow transition-colors animate-bounce z-10">
-            <i class="fas fa-chevron-down text-2xl"></i>
-        </a>
     </section>
 
-<!-- Contador de Impacto / Estadísticas Rápidas -->
-<section class="py-12 bg-darker/60 border-y border-cyanGlow/10 relative z-20">
-    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div class="reveal">
-            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="70">0</span>+</div>
-            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Años de Excelencia</div>
+    <!-- Estadísticas destacadas -->
+    <section class="py-12 bg-darker/60 border-y border-cyanGlow/10 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="reveal">
+                <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="70">0</span>+</div>
+                <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Años de Excelencia</div>
+            </div>
+            <div class="reveal">
+                <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="100">0</span>%</div>
+                <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Formación Integral</div>
+            </div>
+            <div class="reveal">
+                <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="15">0</span>+</div>
+                <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Orquestas y Coros</div>
+            </div>
+            <div class="reveal">
+                <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="4">0</span></div>
+                <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Disciplinas Deportivas</div>
+            </div>
         </div>
-        <div class="reveal">
-            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="100">0</span>%</div>
-            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Formación Integral</div>
-        </div>
-        <div class="reveal">
-            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="15">0</span>+</div>
-            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Orquestas y Coros</div>
-        </div>
-        <div class="reveal">
-            <!-- Configurado exactamente en 4 sin el signo '+' -->
-            <div class="text-4xl font-extrabold text-cyanGlow mb-1"><span class="counter" data-target="4">0</span></div>
-            <div class="text-xs uppercase text-gray-400 font-semibold tracking-wider">Disciplinas Deportivas</div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Fundadores -->
-    <section id="fundadores" class="py-24 relative bg-darker scroll-mt-24">
+    <section id="fundadores" class="scroll-mt-24 py-24 relative bg-darker">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
                 <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Legado Institucional</span>
@@ -246,46 +193,34 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <!-- Emil Friedman -->
-                <div class="reveal-left glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/50 transition-all duration-500 flex flex-col">
-                    <div class="h-[360px] sm:h-[400px] overflow-hidden relative bg-navy/80">
-                        <!-- Main face-centered image -->
-                        <img src="abueloFriedman.jfif" alt="Emil Friedman" class="w-full h-full object-cover object-[center_15%] filter contrast-105 group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x600/1c2541/4cc9f0?text=Maestro+Emil+Friedman'">
-                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy via-navy/50 to-transparent z-20 pointer-events-none"></div>
-                        <span class="absolute top-4 left-4 z-30 bg-navy/90 text-cyanGlow border border-cyanGlow/30 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-md">
-                            1908 - Fundador
-                        </span>
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/40 transition-all duration-500 reveal-left">
+                    <div class="h-96 sm:h-[420px] overflow-hidden relative bg-navy/60">
+                        <img src="abueloFriedman.jfif" alt="Emil Friedman" class="w-full h-full object-cover object-[center_20%] filter contrast-105 group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Maestro+Emil+Friedman'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent"></div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3 group-hover:text-cyanGlow transition-colors">
-                                <i class="fas fa-violin text-cyanGlow text-xl transform group-hover:rotate-12 transition-transform"></i> Maestro Emil Friedman
-                            </h3>
-                            <p class="text-gray-300 text-sm leading-relaxed text-justify font-light">
-                                En el seno de una familia Praguense nació, un 24 de mayo del 1908, Emil Friedman. Vivió su niñez y adolescencia estudiando de manera vehemente la música, conduciéndolo a obtener a sus 17 años el título de Profesor Ejecutante de Violín, otorgado por el Conservatorio de Música de Praga. La década de los años 30 fue muy prolífera y de cambios profundos en la vida de Friedman. El intelecto y el sentimiento se desarrollaron al unísono.
-                            </p>
-                        </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-violin text-cyanGlow text-xl"></i> Maestro Emil Friedman
+                        </h3>
+                        <p class="text-gray-300 text-sm leading-relaxed text-justify">
+                            En el seno de una familia Praguense nació, un 24 de mayo del 1908, Emil Friedman. Vivió su niñez y adolescencia estudiando de manera vehemente la música, conduciéndolo a obtener a sus 17 años el título de Profesor Ejecutante de Violín, otorgado por el Conservatorio de Música de Praga. La década de los años 30 fue muy prolífera y de cambios profundos en la vida de Friedman. El intelecto y el sentimiento se desarrollaron al unísono.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Elvia Argüello -->
-                <div class="reveal-right glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/50 transition-all duration-500 flex flex-col">
-                    <div class="h-[360px] sm:h-[400px] overflow-hidden relative bg-navy/80">
-                        <!-- Main face-centered image -->
-                        <img src="ElviaFriedman.jfif" alt="Elvia Argüello" class="w-full h-full object-cover object-[center_15%] filter contrast-105 group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x600/1c2541/4cc9f0?text=Prof.+Elvia+Arguello'">
-                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy via-navy/50 to-transparent z-20 pointer-events-none"></div>
-                        <span class="absolute top-4 left-4 z-30 bg-navy/90 text-cyanGlow border border-cyanGlow/30 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-md">
-                            1925 - Co-Fundadora
-                        </span>
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-cyanGlow/40 transition-all duration-500 reveal-right">
+                    <div class="h-96 sm:h-[420px] overflow-hidden relative bg-navy/60">
+                        <img src="ElviaFriedman.jfif" alt="Elvia Argüello" class="w-full h-full object-cover object-[center_20%] filter contrast-105 group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Prof.+Elvia+Arguello'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent"></div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyanGlow transition-colors">
-                                Elvia Argüello
-                            </h3>
-                            <p class="text-gray-300 text-sm leading-relaxed text-justify font-light">
-                                Un 5 de julio de 1925 nació en Maracaibo-Venezuela, Elvia Elisa Arguello. Su niñez se desarrolló en la ciudad de Valera , Estado Trujillo, donde cursó su primaria. De vuelta a Maracaibo estudió paralelamente en el Liceo Udon Pérez y en la Escuela Normal, esta última con el sueño de convertirse en maestra. Recibe también la formación religiosa en el Instituto Bíblico Ebenezer convirtiéndose en maestra de Escuela Bíblica. A la vez inicia sus lecciones de piano, desarrollando así sus inclinaciones musicales.
-                            </p>
-                        </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4">
+                            Elvia Argüello
+                        </h3>
+                        <p class="text-gray-300 text-sm leading-relaxed text-justify">
+                            Un 5 de julio de 1925 nació en Maracaibo-Venezuela, Elvia Elisa Arguello. Su niñez se desarrolló en la ciudad de Valera , Estado Trujillo, donde cursó su primaria. De vuelta a Maracaibo estudió paralelamente en el Liceo Udon Pérez y en la Escuela Normal, esta última con el sueño de convertirse en maestra. Recibe también la formación religiosa en el Instituto Bíblico Ebenezer convirtiéndose en maestra de Escuela Bíblica. A la vez inicia sus lecciones de piano, desarrollando así sus inclinaciones musicales.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -293,7 +228,7 @@
     </section>
 
     <!-- Filosofía Institucional -->
-    <section id="filosofia" class="py-24 relative bg-dark scroll-mt-24">
+    <section id="filosofia" class="scroll-mt-24 py-24 relative bg-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
                 <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Fundamentos</span>
@@ -303,12 +238,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Misión -->
-                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1">
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/50 hover:translate-x-1 transition duration-300 reveal-left">
                     <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
-                            <i class="fas fa-compass"></i>
-                        </div> 
-                        Misión
+                        <i class="fas fa-compass"></i> Misión
                     </h3>
                     <p class="text-gray-300 text-sm leading-relaxed text-justify">
                         Desarrollar el máximo potencial de los estudiantes, a partir del despliegue de las inteligencias múltiples, haciendo énfasis en la música y en el deporte; en la optimización y profundización del conocimiento, la creatividad, intuición, independencia.
@@ -316,12 +248,9 @@
                 </div>
 
                 <!-- Visión -->
-                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1" style="transition-delay: 150ms;">
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/50 hover:translate-x-1 transition duration-300 reveal-right">
                     <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
-                            <i class="fas fa-eye"></i>
-                        </div> 
-                        Visión
+                        <i class="fas fa-eye"></i> Visión
                     </h3>
                     <p class="text-gray-300 text-sm leading-relaxed text-justify">
                         Ser la primera opción de las familias en cuanto a la formación integral con enfoque humanista de sus hijos, haciendo énfasis en el desarrollo de las inteligencias múltiples con preponderancia en la música y en el deporte, manteniendo altos estándares de calidad en todo el quehacer educativo.
@@ -329,12 +258,9 @@
                 </div>
 
                 <!-- Objetivos -->
-                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1">
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/50 hover:translate-x-1 transition duration-300 reveal-left">
                     <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
-                            <i class="fas fa-bullseye"></i>
-                        </div> 
-                        Objetivos
+                        <i class="fas fa-bullseye"></i> Objetivos
                     </h3>
                     <p class="text-gray-300 text-sm leading-relaxed text-justify">
                         Formar individuos integrales, a través del desarrollo de las inteligencias múltiples con énfasis en la música y el deporte; independientes, responsables y comprometidos con la construcción y promoción de una sociedad libre.
@@ -342,12 +268,9 @@
                 </div>
 
                 <!-- Valores -->
-                <div class="reveal glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/60 transition group hover:-translate-y-1" style="transition-delay: 150ms;">
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-l-cyanGlow hover:bg-navy/50 hover:translate-x-1 transition duration-300 reveal-right">
                     <h3 class="text-xl font-bold text-cyanGlow mb-3 flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-cyanGlow/10 flex items-center justify-center text-cyanGlow group-hover:bg-cyanGlow group-hover:text-dark transition-colors">
-                            <i class="fas fa-gem"></i>
-                        </div> 
-                        Valores
+                        <i class="fas fa-gem"></i> Valores
                     </h3>
                     <p class="text-gray-300 text-sm leading-relaxed text-justify">
                         Los valores constituyen un principio de conducta, una manera de ser y hacer, que se expresan en actos concretos de la vida. Implican la necesidad de garantizar al educando la capacidad de analizar éticamente los acontecimientos y sucesos.
@@ -358,66 +281,61 @@
     </section>
 
     <!-- Modelo Educativo -->
-    <section id="modelo" class="py-24 bg-darker relative scroll-mt-24">
+    <section id="modelo" class="scroll-mt-24 py-24 bg-darker relative">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="reveal">
                 <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Propuesta Pedagógica</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-8">Modelo Educativo</h2>
+                
+                <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-justify sm:text-center">
+                    Nuestro modelo educativo, basado en una concepción humanística y bajo un enfoque de educación integral, muestra el diseño, la estructura y los componentes esenciales del proceso formativo, que sirve de guía para la acción docente, desde Preescolar hasta Media General mención Ciencias.
+                    <br/><br/>
+                    El pensamiento del Maestro Emil Friedman, permea cada uno de nuestros actos pedagógicos y educativos.
+                </p>
             </div>
-            
-            <p class="reveal text-gray-300 text-base md:text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-justify sm:text-center font-light">
-                Nuestro modelo educativo, basado en una concepción humanística y bajo un enfoque de educación integral, muestra el diseño, la estructura y los componentes esenciales del proceso formativo, que sirve de guía para la acción docente, desde Preescolar hasta Media General mención Ciencias.
-                <br/><br/>
-                El pensamiento del Maestro Emil Friedman, permea cada uno de nuestros actos pedagógicos y educativos.
-            </p>
 
-            <div class="reveal-zoom glass-card p-10 rounded-3xl border border-cyanGlow/30 relative overflow-hidden group hover:shadow-[0_0_35px_rgba(76,201,240,0.2)]">
-                <i class="fas fa-quote-left text-6xl text-cyanGlow/15 absolute top-6 left-6 group-hover:scale-110 transition-transform"></i>
+            <div class="glass-card p-10 rounded-3xl border border-cyanGlow/30 relative hover:border-cyanGlow/60 transition duration-500 reveal">
+                <i class="fas fa-quote-left text-5xl text-cyanGlow/20 absolute top-6 left-6"></i>
                 <blockquote class="text-xl md:text-2xl font-light italic text-white leading-relaxed relative z-10">
                     “La educación debe desarrollar el sentimiento a través de las artes de la creación de la fantasía y de la sensibilidad, el intelecto humano a través de la ciencia y el cuerpo con los deportes”
                 </blockquote>
-                <div class="mt-6 font-semibold text-cyanGlow text-sm uppercase tracking-wider flex items-center justify-center gap-2">
-                    <span class="w-8 h-0.5 bg-cyanGlow/40"></span>
-                    Maestro Emil Friedman
-                    <span class="w-8 h-0.5 bg-cyanGlow/40"></span>
+                <div class="mt-6 font-semibold text-cyanGlow text-sm uppercase tracking-wider">
+                    — Maestro Emil Friedman
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Academia de Música -->
-    <section id="academia" class="py-24 bg-dark relative scroll-mt-24">
+    <section id="academia" class="scroll-mt-24 py-24 bg-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="reveal-left rounded-2xl overflow-hidden glass-card p-2 group">
-                    <div class="overflow-hidden rounded-xl relative">
-                        <img src="CoroColegio.jfif" alt="Orquestas y Coros Emil Friedman" class="w-full h-auto rounded-xl object-cover transform group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Orquestas+y+Coros'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-darker/60 to-transparent"></div>
-                    </div>
+                <div class="rounded-2xl overflow-hidden glass-card p-2 reveal-left">
+                    <img src="CoroColegio.jfif" alt="Orquestas y Coros Emil Friedman" class="w-full h-auto rounded-xl object-cover hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Orquestas+y+Coros'">
                 </div>
                 <div class="reveal-right">
                     <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Formación Artística</span>
                     <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">Academia de Música</h2>
-                    <p class="text-gray-300 text-base leading-relaxed mb-8 text-justify font-light">
+                    <p class="text-gray-300 text-base leading-relaxed mb-8 text-justify">
                         Con la fundación del Kindergarten Musical Emil Friedman se inicia la Academia de Música; en ella los estudiantes desarrollan y cultivan su talento musical con el estudio de algún instrumento que le permite integrarse activamente a algunas de las orquestas existentes según su nivel de adelanto.
                     </p>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-guitar text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Orquestas</span>
                         </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-users text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Coros</span>
                         </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-drum text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Ensambles</span>
                         </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-graduation-cap text-cyanGlow text-lg"></i>
-                            <span class="text-white font-medium text-sm">Conservatorio</span>
+                            <span class="text-white font-medium text-sm">Conservatorio de música</span>
                         </div>
                     </div>
                 </div>
@@ -426,51 +344,48 @@
     </section>
 
     <!-- Desarrollo Deportivo -->
-    <section id="deportes" class="py-24 bg-darker relative scroll-mt-24">
+    <section id="deportes" class="scroll-mt-24 py-24 bg-darker relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="reveal-left order-2 lg:order-1">
+                <div class="order-2 lg:order-1 reveal-left">
                     <span class="text-cyanGlow uppercase tracking-widest font-semibold text-xs">Salud y Disciplina</span>
                     <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">Desarrollo Deportivo</h2>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-8 text-justify font-light">
+                    <p class="text-gray-300 text-sm leading-relaxed mb-8 text-justify">
                         El Colegio siendo consciente de esta necesidad, estimula a diario a los niños y jóvenes, que hacen vida en sus espacios, a lograr estilos saludables de desarrollo, a través de las diversas actividades deportivas que se realizan a lo largo de la jornada diaria, no solo durante las clases regulares de Educación Física, sino también de disciplinas deportivas extracurriculares, cuyos equipos alcanzan altos niveles de competitividad, gracias no solo al esfuerzo de sus integrantes, sino también a valores como el compañerismo, el trabajo de equipo, responsabilidad y compromiso que se desarrollan de manera espontánea a lo largo de los entrenamientos y que por razones obvias forman parte de la filosofía de la institución.
                     </p>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
-    <i class="fas fa-futbol text-cyanGlow text-lg"></i>
-    <span class="text-white font-medium text-sm">Fútbol</span>
-</div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
+                            <i class="fas fa-football-ball text-cyanGlow text-lg"></i>
+                            <span class="text-white font-medium text-sm">Fútbol</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-swimmer text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Natación</span>
                         </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-basketball-ball text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Baloncesto</span>
                         </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:border-cyanGlow/50 transition-all hover:scale-105 transform cursor-default">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 hover:bg-cyanGlow/10 transition">
                             <i class="fas fa-volleyball-ball text-cyanGlow text-lg"></i>
                             <span class="text-white font-medium text-sm">Voleibol</span>
                         </div>
                     </div>
                 </div>
-                <div class="reveal-right order-1 lg:order-2 rounded-2xl overflow-hidden glass-card p-2 group">
-                    <div class="overflow-hidden rounded-xl relative">
-                        <img src="PiscinaColegio.jfif" alt="Instalaciones Deportivas" class="w-full h-auto rounded-xl object-cover transform group-hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Piscina+y+Deportes'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-darker/60 to-transparent"></div>
-                    </div>
+                <div class="order-1 lg:order-2 rounded-2xl overflow-hidden glass-card p-2 reveal-right">
+                    <img src="PiscinaColegio.jfif" alt="Instalaciones Deportivas" class="w-full h-auto rounded-xl object-cover hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x400/1c2541/4cc9f0?text=Piscina+y+Deportes'">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer y Contacto -->
-    <footer class="bg-darker border-t border-cyanGlow/10 pt-16 pb-12 relative z-10">
+    <footer id="contacto" class="bg-darker border-t border-cyanGlow/10 pt-16 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
                 <!-- Branding -->
-                <div class="reveal">
+                <div>
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-full border-2 border-cyanGlow flex items-center justify-center bg-navy overflow-hidden">
                             <img src="LogoColegio.jfif" alt="Logo Colegio Emil Friedman" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('footer-logo-text').classList.remove('hidden');">
@@ -478,13 +393,13 @@
                         </div>
                         <span class="font-bold text-lg text-white">COLEGIO EMIL FRIEDMAN</span>
                     </div>
-                    <p class="text-gray-400 text-xs leading-relaxed font-light">
+                    <p class="text-gray-400 text-xs leading-relaxed">
                         Institución educativa privada comprometida con la formación integral y el desarrollo de las inteligencias múltiples.
                     </p>
                 </div>
 
                 <!-- Contacto -->
-                <div class="reveal space-y-3" style="transition-delay: 100ms;">
+                <div class="space-y-3">
                     <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">Contacto</h4>
                     <p class="text-gray-300 text-xs flex items-start gap-2">
                         <i class="fas fa-phone-alt text-cyanGlow mt-0.5"></i>
@@ -497,9 +412,9 @@
                 </div>
 
                 <!-- Dirección -->
-                <div class="reveal" style="transition-delay: 200ms;">
+                <div>
                     <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-2">Ubicación</h4>
-                    <p class="text-gray-300 text-xs leading-relaxed flex items-start gap-2 font-light">
+                    <p class="text-gray-300 text-xs leading-relaxed flex items-start gap-2">
                         <i class="fas fa-map-marker-alt text-cyanGlow mt-0.5"></i>
                         <span>Calle Emil Friedman, Urb. Los Campitos Ruta A, Caracas 1080, Miranda - Venezuela</span>
                     </p>
@@ -514,138 +429,552 @@
         </div>
     </footer>
 
+    <!-- MODAL DE FORMULARIO DE ENTREVISTA (DENTRO DE LA MISMA PÁGINA) -->
+    <div id="interview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-darker/80 backdrop-blur-md hidden transition-all duration-300">
+        <div class="relative w-full max-w-2xl bg-darker border border-cyanGlow/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <!-- Header Modal -->
+            <div class="bg-navy p-5 border-b border-cyanGlow/20 flex justify-between items-center">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fas fa-file-signature text-cyanGlow"></i> Solicitud de entrevista para aspirantes
+                    </h3>
+                    <p class="text-xs text-cyanGlow/80 mt-0.5">Colegio Emil Friedman | Proceso de Admisión</p>
+                </div>
+                <button onclick="closeInterviewModal()" class="text-gray-400 hover:text-white transition w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Indicador de pasos -->
+            <div class="bg-navy/50 px-6 py-3 border-b border-cyanGlow/10 flex justify-between text-xs font-semibold text-gray-400">
+                <div id="step-indicator-1" class="text-cyanGlow flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-cyanGlow text-dark flex items-center justify-center font-bold text-[10px]">1</span> Aspirante</div>
+                <div id="step-indicator-2" class="flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-navy border border-gray-500 flex items-center justify-center font-bold text-[10px]">2</span> Madre</div>
+                <div id="step-indicator-3" class="flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-navy border border-gray-500 flex items-center justify-center font-bold text-[10px]">3</span> Padre</div>
+                <div id="step-indicator-4" class="flex items-center gap-1.5"><span class="w-5 h-5 rounded-full bg-navy border border-gray-500 flex items-center justify-center font-bold text-[10px]">4</span> Adicionales</div>
+            </div>
+
+            <!-- Contenido del Formulario (Scrollable) -->
+            <div id="modal-scroll-container" class="p-6 overflow-y-auto flex-grow space-y-6">
+                
+                <!-- Advertencia Inicial -->
+                <div class="bg-cyanGlow/10 border border-cyanGlow/30 rounded-xl p-4 text-xs text-gray-300 space-y-1.5 leading-relaxed">
+                    <p class="font-bold text-cyanGlow uppercase tracking-wider text-[11px] mb-1"><i class="fas fa-exclamation-circle"></i> IMPORTANTE</p>
+                    <p>• Esta planilla no representa ningún compromiso de entrevista o cupo del C.E.F. con el Representante.</p>
+                    <p>• Si se le concede la entrevista la Administración del C.E.F. se comunicará vía correo electrónico o telefónicamente con usted(es).</p>
+                    <p>• Esta solicitud tendrá validez solo para el año escolar indicado.</p>
+                    <p>• La información solicitada es confidencial y de absoluta reserva para el C.E.F. Edad mínima de ingreso: 3 años.</p>
+                </div>
+
+                <form id="admission-form" novalidate>
+                    
+                    <!-- PASO 1: Datos del Aspirante -->
+                    <div id="form-step-1" class="space-y-4">
+                        <div class="border-b border-cyanGlow/20 pb-2">
+                            <h4 class="text-white font-bold text-sm text-cyanGlow">Datos del Aspirante</h4>
+                            <p class="text-xs text-gray-400">Información del estudiante</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Año escolar al que aspira ingresar al colegio *</label>
+                            <select id="ano_escolar" class="form-input">
+                                <option value="">Elegir año escolar...</option>
+                                <option value="2024-2025">2024 - 2025</option>
+                                <option value="2025-2026">2025 - 2026</option>
+                                <option value="2026-2027">2026 - 2027</option>
+                            </select>
+                            <span class="error-msg" id="err-ano_escolar">Por favor seleccione un año escolar.</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Grado a cursar *</label>
+                            <select id="grado_cursar" class="form-input">
+                                <option value="">Elegir grado...</option>
+                                <option value="Grupo 1 de Educación Inicial">Grupo 1 de Educación Inicial</option>
+                                <option value="Grupo 2 de Educación Inicial">Grupo 2 de Educación Inicial</option>
+                                <option value="Grupo 3 de Educación Inicial">Grupo 3 de Educación Inicial</option>
+                                <option value="Primer grado">Primer grado</option>
+                                <option value="Segundo Grado">Segundo Grado</option>
+                                <option value="Tercer Grado">Tercer Grado</option>
+                                <option value="Cuarto Grado">Cuarto Grado</option>
+                                <option value="Quinto Grado">Quinto Grado</option>
+                                <option value="Sexto Grado">Sexto Grado</option>
+                                <option value="Primer Año">Primer Año</option>
+                                <option value="Segundo Año">Segundo Año</option>
+                                <option value="Tercer Año">Tercer Año</option>
+                                <option value="Cuarto Año">Cuarto Año</option>
+                                <option value="Quinto Año">Quinto Año</option>
+                            </select>
+                            <span class="error-msg" id="err-grado_cursar">Por favor seleccione el grado a cursar.</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Colegio de procedencia del aspirante *</label>
+                            <input type="text" id="colegio_procedencia" class="form-input" placeholder="Nombre del colegio anterior">
+                            <span class="error-msg" id="err-colegio_procedencia">Escriba el colegio de procedencia.</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Apellidos y Nombres del aspirante *</label>
+                            <input type="text" id="nombre_aspirante" class="form-input" placeholder="Nombre completo del estudiante">
+                            <span class="error-msg" id="err-nombre_aspirante">Ingrese los apellidos y nombres completados.</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Lugar de Nacimiento del aspirante *</label>
+                                <input type="text" id="lugar_nacimiento" class="form-input" placeholder="Ciudad / Estado">
+                                <span class="error-msg" id="err-lugar_nacimiento">Indique el lugar de nacimiento.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Sexo del aspirante *</label>
+                                <select id="sexo_aspirante" class="form-input">
+                                    <option value="">Elegir...</option>
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="Masculino">Masculino</option>
+                                </select>
+                                <span class="error-msg" id="err-sexo_aspirante">Seleccione el sexo.</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Fecha de Nacimiento del aspirante *</label>
+                            <input type="date" id="fecha_nacimiento" class="form-input">
+                            <span class="error-msg" id="err-fecha_nacimiento">Ingrese una fecha válida.</span>
+                        </div>
+                    </div>
+
+                    <!-- PASO 2: Datos de la Madre -->
+                    <div id="form-step-2" class="space-y-4 hidden">
+                        <div class="border-b border-cyanGlow/20 pb-2">
+                            <h4 class="text-white font-bold text-sm text-cyanGlow">Datos de Representante - Madre</h4>
+                            <p class="text-xs text-gray-400">Información personal y laboral de la madre</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Apellidos de la madre *</label>
+                                <input type="text" id="apellidos_madre" class="form-input" placeholder="Apellidos completos">
+                                <span class="error-msg" id="err-apellidos_madre">Ingrese los apellidos.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Nombres de la madre *</label>
+                                <input type="text" id="nombres_madre" class="form-input" placeholder="Nombres completos">
+                                <span class="error-msg" id="err-nombres_madre">Ingrese los nombres.</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Cédula de la madre *</label>
+                                <input type="text" id="cedula_madre" class="form-input" placeholder="Ej: V-12345678">
+                                <span class="error-msg" id="err-cedula_madre">Ingrese número de cédula válido.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Profesión de la madre *</label>
+                                <input type="text" id="profesion_madre" class="form-input" placeholder="Ej: Ingeniero, Docente...">
+                                <span class="error-msg" id="err-profesion_madre">Ingrese la profesión.</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Lugar de trabajo de la madre *</label>
+                                <input type="text" id="trabajo_madre" class="form-input" placeholder="Empresa u Organización">
+                                <span class="error-msg" id="err-trabajo_madre">Escriba el lugar de trabajo.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Cargo de la madre *</label>
+                                <input type="text" id="cargo_madre" class="form-input" placeholder="Cargo que desempeña">
+                                <span class="error-msg" id="err-cargo_madre">Escriba el cargo.</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Teléfono celular de la madre *</label>
+                                <input type="tel" id="telefono_madre" class="form-input" placeholder="Ej: 0414-1234567">
+                                <span class="error-msg" id="err-telefono_madre">Ingrese un teléfono celular válido.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Correo Electrónico de la madre *</label>
+                                <input type="email" id="email_madre" class="form-input" placeholder="correo@ejemplo.com">
+                                <span class="error-msg" id="err-email_madre">Ingrese un correo válido.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PASO 3: Datos del Padre -->
+                    <div id="form-step-3" class="space-y-4 hidden">
+                        <div class="border-b border-cyanGlow/20 pb-2">
+                            <h4 class="text-white font-bold text-sm text-cyanGlow">Datos de Representante - Padre</h4>
+                            <p class="text-xs text-gray-400">Información personal y laboral del padre</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Apellidos del padre *</label>
+                                <input type="text" id="apellidos_padre" class="form-input" placeholder="Apellidos completos">
+                                <span class="error-msg" id="err-apellidos_padre">Ingrese los apellidos.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Nombres del padre *</label>
+                                <input type="text" id="nombres_padre" class="form-input" placeholder="Nombres completos">
+                                <span class="error-msg" id="err-nombres_padre">Ingrese los nombres.</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Cédula del padre *</label>
+                                <input type="text" id="cedula_padre" class="form-input" placeholder="Ej: V-12345678">
+                                <span class="error-msg" id="err-cedula_padre">Ingrese número de cédula válido.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Profesión del padre *</label>
+                                <input type="text" id="profesion_padre" class="form-input" placeholder="Ej: Médico, Abogado...">
+                                <span class="error-msg" id="err-profesion_padre">Ingrese la profesión.</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Lugar de trabajo del padre *</label>
+                                <input type="text" id="trabajo_padre" class="form-input" placeholder="Empresa u Organización">
+                                <span class="error-msg" id="err-trabajo_padre">Escriba el lugar de trabajo.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Cargo del padre *</label>
+                                <input type="text" id="cargo_padre" class="form-input" placeholder="Cargo que desempeña">
+                                <span class="error-msg" id="err-cargo_padre">Escriba el cargo.</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Teléfono celular del padre *</label>
+                                <input type="tel" id="telefono_padre" class="form-input" placeholder="Ej: 0412-1234567">
+                                <span class="error-msg" id="err-telefono_padre">Ingrese un teléfono celular válido.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Correo Electrónico del padre *</label>
+                                <input type="email" id="email_padre" class="form-input" placeholder="correo@ejemplo.com">
+                                <span class="error-msg" id="err-email_padre">Ingrese un correo válido.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PASO 4: Datos Adicionales -->
+                    <div id="form-step-4" class="space-y-4 hidden">
+                        <div class="border-b border-cyanGlow/20 pb-2">
+                            <h4 class="text-white font-bold text-sm text-cyanGlow">Datos adicionales</h4>
+                            <p class="text-xs text-gray-400">Información complementaria</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-2">¿El aspirante tiene hermanos en el colegio? *</label>
+                            <div class="flex gap-6 text-xs text-gray-200">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="hermanos" value="Sí" class="accent-cyanGlow"> Sí
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="hermanos" value="No" checked class="accent-cyanGlow"> No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">¿Alguna referencia en el colegio?</label>
+                            <input type="text" id="referencias_colegio" class="form-input" placeholder="Nombre de familiar, exalumno o profesor de referencia (Opcional)">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Observaciones</label>
+                            <textarea id="observaciones" rows="3" class="form-input" placeholder="Escriba aquí cualquier observación adicional relevante..."></textarea>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Mensaje de Confirmación tras enviar -->
+                <div id="success-screen" class="hidden text-center py-8 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-cyanGlow/20 border-2 border-cyanGlow text-cyanGlow flex items-center justify-center text-3xl mx-auto shadow-[0_0_20px_rgba(76,201,240,0.4)]">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">¡Solicitud Registrada con Éxito!</h3>
+                    <p class="text-xs text-gray-300 max-w-md mx-auto leading-relaxed">
+                        Hemos recibido la planilla de entrevista para el aspirante. La administración del Colegio Emil Friedman revisará la información y se comunicará vía correo o teléfono.
+                    </p>
+                    <button onclick="closeInterviewModal()" class="mt-4 bg-cyanGlow text-dark font-bold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider hover:bg-white transition">
+                        Aceptar y Cerrar
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Footer con Botones de Navegación -->
+            <div id="modal-footer" class="bg-navy p-4 border-t border-cyanGlow/20 flex justify-between items-center">
+                <button id="btn-prev" onclick="prevStep()" class="hidden bg-dark hover:bg-navy text-gray-300 px-5 py-2 rounded-xl text-xs font-semibold border border-cyanGlow/20 transition">
+                    <i class="fas fa-arrow-left mr-1"></i> Atrás
+                </button>
+                <div></div>
+                <button id="btn-next" onclick="nextStep()" class="bg-cyanGlow text-dark hover:bg-white px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-[0_0_15px_rgba(76,201,240,0.3)]">
+                    Siguiente <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Chatbot Floating Toggle -->
-    <button id="chatbot-toggle" aria-label="Abrir asistente de ayuda" class="fixed bottom-6 right-6 w-14 h-14 bg-cyanGlow text-dark rounded-full shadow-[0_0_20px_rgba(76,201,240,0.5)] flex items-center justify-center text-xl z-50 hover:bg-white hover:scale-110 transition-all duration-300 animate-float">
+    <button id="chatbot-toggle" class="fixed bottom-6 right-6 w-14 h-14 bg-cyanGlow text-dark rounded-full shadow-[0_0_20px_rgba(76,201,240,0.4)] flex items-center justify-center text-xl z-40 hover:bg-white hover:scale-110 transition-all duration-300 animate-float">
         <i class="fas fa-comments"></i>
     </button>
 
     <!-- Chatbot Modal -->
-    <div id="chatbot-modal" class="fixed bottom-24 right-6 w-80 sm:w-96 bg-darker border border-cyanGlow/30 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col hidden transform transition-all duration-300">
+    <div id="chatbot-modal" class="fixed bottom-24 right-6 w-80 sm:w-96 bg-darker border border-cyanGlow/20 rounded-2xl shadow-2xl z-40 overflow-hidden flex flex-col hidden transform transition-all duration-300">
         <div class="bg-navy p-4 flex justify-between items-center border-b border-cyanGlow/10">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full bg-cyanGlow text-dark flex items-center justify-center font-bold text-xs">EF</div>
-                <div>
-                    <span class="text-white font-medium text-sm block">Atención Emil Friedman</span>
-                    <span class="text-[10px] text-cyanGlow flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> En línea</span>
-                </div>
+                <span class="text-white font-medium text-sm">Atención Colegio Emil Friedman</span>
             </div>
-            <button id="chatbot-close" class="text-gray-400 hover:text-white transition"><i class="fas fa-times"></i></button>
+            <button id="chatbot-close" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
         </div>
-        
-        <div id="chatbot-messages" class="h-72 p-4 overflow-y-auto flex flex-col gap-3 text-xs bg-dark/70">
-            <div class="bg-navy text-gray-200 p-3 rounded-xl max-w-[85%] border border-cyanGlow/10 shadow-sm">
-                ¡Hola! Bienvenido al Colegio Emil Friedman. ¿En qué información estás interesado? Puedes preguntarme sobre admisión, música, deportes o contacto.
+
+        <div id="chatbot-messages" class="h-64 p-4 overflow-y-auto flex flex-col gap-3 text-xs bg-dark/60">
+            <div class="bg-navy text-gray-200 p-3 rounded-xl max-w-[85%] border border-cyanGlow/10">
+                ¡Hola! Bienvenido al Colegio Emil Friedman. ¿En qué información estás interesado?
             </div>
         </div>
-        
-        <!-- Opciones rápidas de consulta -->
-        <div class="px-3 py-2 bg-navy/60 border-t border-cyanGlow/10 flex flex-wrap gap-1.5">
-            <button onclick="sendQuickMessage('Inscripción y Entrevista')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Entrevista</button>
-            <button onclick="sendQuickMessage('Música u Orquesta')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Música</button>
-            <button onclick="sendQuickMessage('Deportes')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Deportes</button>
-            <button onclick="sendQuickMessage('Ubicación y Teléfonos')" class="bg-dark/80 hover:bg-cyanGlow/20 text-cyanGlow border border-cyanGlow/20 rounded-full px-2.5 py-1 text-[10px] transition">Ubicación</button>
+
+        <!-- Acceso rápido -->
+        <div class="px-3 py-2 bg-dark/90 border-t border-cyanGlow/10 flex flex-wrap gap-1.5 text-[10px]">
+            <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Admisión</button>
+            <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Música</button>
+            <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Deportes</button>
+            <button class="quick-ask bg-navy hover:bg-cyanGlow hover:text-dark text-cyanGlow px-2 py-1 rounded-md transition border border-cyanGlow/20">Ubicación</button>
         </div>
 
         <form id="chatbot-form" class="p-3 bg-navy border-t border-cyanGlow/10 flex gap-2">
-            <input type="text" id="chatbot-input" placeholder="Escribe tu consulta..." class="flex-grow bg-dark border border-cyanGlow/20 text-white text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-cyanGlow transition">
-            <button type="submit" class="bg-cyanGlow text-dark px-3.5 py-2 rounded-lg text-xs font-bold hover:bg-white transition"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="chatbot-input" placeholder="Escribe tu consulta..." class="flex-grow bg-dark border border-cyanGlow/20 text-white text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-cyanGlow">
+            <button type="submit" class="bg-cyanGlow text-dark px-3 py-2 rounded-lg text-xs font-bold hover:bg-white transition"><i class="fas fa-paper-plane"></i></button>
         </form>
     </div>
 
-    <!-- Interactive Scripts -->
+    <!-- Script de Animaciones, ScrollSpy, Formulario e Interacciones -->
     <script>
-        // 1. NAVBAR SCROLL EFFECT AND ACTIVE LINK HIGHLIGHTING
-        const navbar = document.getElementById('navbar');
+        // --- 1. LÓGICA DEL MODAL Y FORMULARIO MULTI-PASO ---
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function openInterviewModal() {
+            document.getElementById('interview-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInterviewModal() {
+            document.getElementById('interview-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateStepUI() {
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepEl = document.getElementById(`form-step-${i}`);
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                
+                if (i === currentStep) {
+                    stepEl.classList.remove('hidden');
+                    indicator.className = 'text-cyanGlow flex items-center gap-1.5 font-bold';
+                    indicator.querySelector('span').className = 'w-5 h-5 rounded-full bg-cyanGlow text-dark flex items-center justify-center font-bold text-[10px]';
+                } else {
+                    stepEl.classList.add('hidden');
+                    indicator.className = 'flex items-center gap-1.5 text-gray-400';
+                    indicator.querySelector('span').className = 'w-5 h-5 rounded-full bg-navy border border-gray-500 flex items-center justify-center font-bold text-[10px]';
+                }
+            }
+
+            // Botones
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            if (currentStep === 1) {
+                btnPrev.classList.add('hidden');
+            } else {
+                btnPrev.classList.remove('hidden');
+            }
+
+            if (currentStep === totalSteps) {
+                btnNext.innerHTML = 'Enviar Solicitud <i class="fas fa-paper-plane ml-1"></i>';
+                btnNext.className = 'bg-gradient-to-r from-accent to-cyanGlow text-white hover:brightness-125 px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-lg';
+            } else {
+                btnNext.innerHTML = 'Siguiente <i class="fas fa-arrow-right ml-1"></i>';
+                btnNext.className = 'bg-cyanGlow text-dark hover:bg-white px-6 py-2.5 rounded-xl text-xs font-bold transition shadow-[0_0_15px_rgba(76,201,240,0.3)]';
+            }
+
+            // Scroll suave hacia la parte superior del formulario al cambiar de paso
+            const container = document.getElementById('modal-scroll-container');
+            if (container) container.scrollTop = 0;
+        }
+
+        function setError(fieldId, show) {
+            const field = document.getElementById(fieldId);
+            const errMsg = document.getElementById(`err-${fieldId}`);
+            if (!field) return;
+
+            if (show) {
+                field.classList.add('error');
+                if (errMsg) errMsg.style.display = 'block';
+            } else {
+                field.classList.remove('error');
+                if (errMsg) errMsg.style.display = 'none';
+            }
+        }
+
+        function scrollToField(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                field.focus();
+            }
+        }
+
+        function validateStep(step) {
+            let isValid = true;
+            let firstInvalidFieldId = null;
+
+            const check = (id, condition) => {
+                if (condition) {
+                    setError(id, true);
+                    isValid = false;
+                    if (!firstInvalidFieldId) firstInvalidFieldId = id;
+                } else {
+                    setError(id, false);
+                }
+            };
+
+            if (step === 1) {
+                check('ano_escolar', !document.getElementById('ano_escolar').value);
+                check('grado_cursar', !document.getElementById('grado_cursar').value);
+                check('colegio_procedencia', !document.getElementById('colegio_procedencia').value.trim());
+                check('nombre_aspirante', !document.getElementById('nombre_aspirante').value.trim());
+                check('lugar_nacimiento', !document.getElementById('lugar_nacimiento').value.trim());
+                check('sexo_aspirante', !document.getElementById('sexo_aspirante').value);
+                check('fecha_nacimiento', !document.getElementById('fecha_nacimiento').value);
+            } else if (step === 2) {
+                check('apellidos_madre', !document.getElementById('apellidos_madre').value.trim());
+                check('nombres_madre', !document.getElementById('nombres_madre').value.trim());
+                check('cedula_madre', !document.getElementById('cedula_madre').value.trim());
+                check('profesion_madre', !document.getElementById('profesion_madre').value.trim());
+                check('trabajo_madre', !document.getElementById('trabajo_madre').value.trim());
+                check('cargo_madre', !document.getElementById('cargo_madre').value.trim());
+                check('telefono_madre', !document.getElementById('telefono_madre').value.trim());
+                
+                const emailVal = document.getElementById('email_madre').value.trim();
+                const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                check('email_madre', !emailReg.test(emailVal));
+            } else if (step === 3) {
+                check('apellidos_padre', !document.getElementById('apellidos_padre').value.trim());
+                check('nombres_padre', !document.getElementById('nombres_padre').value.trim());
+                check('cedula_padre', !document.getElementById('cedula_padre').value.trim());
+                check('profesion_padre', !document.getElementById('profesion_padre').value.trim());
+                check('trabajo_padre', !document.getElementById('trabajo_padre').value.trim());
+                check('cargo_padre', !document.getElementById('cargo_padre').value.trim());
+                check('telefono_padre', !document.getElementById('telefono_padre').value.trim());
+                
+                const emailVal = document.getElementById('email_padre').value.trim();
+                const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                check('email_padre', !emailReg.test(emailVal));
+            }
+
+            if (!isValid && firstInvalidFieldId) {
+                scrollToField(firstInvalidFieldId);
+            }
+
+            return isValid;
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepUI();
+                } else {
+                    // Enviar formulario (Paso Final)
+                    document.getElementById('admission-form').classList.add('hidden');
+                    document.getElementById('modal-footer').classList.add('hidden');
+                    document.getElementById('success-screen').classList.remove('hidden');
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepUI();
+            }
+        }
+
+        // Detectores de eventos para limpiar errores en tiempo real conforme el usuario escribe
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('input', () => setError(input.id, false));
+            input.addEventListener('change', () => setError(input.id, false));
+        });
+
+        // --- 2. ANIMACIONES SCROLL REVEAL Y CONTADORES ---
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        let count = 0;
+                        const inc = target / 40;
+                        const updateCount = () => {
+                            count += inc;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(updateCount, 30);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+        // --- 3. SCROLLSPY (RESALTADO NAVEGACIÓN) ---
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
 
         window.addEventListener('scroll', () => {
-            // Navbar background blur update
-            if (window.scrollY > 50) {
-                navbar.classList.remove('bg-darker/40', 'border-transparent');
-                navbar.classList.add('bg-darker/95', 'border-cyanGlow/15', 'shadow-lg');
-            } else {
-                navbar.classList.add('bg-darker/40', 'border-transparent');
-                navbar.classList.remove('bg-darker/95', 'border-cyanGlow/15', 'shadow-lg');
-            }
-
-            // Scrollspy / Highlight Active Link
-            let currentSection = '';
+            let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop - 120;
-                const sectionHeight = section.offsetHeight;
-                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    currentSection = section.getAttribute('id');
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
                 }
             });
 
             navLinks.forEach(link => {
                 link.classList.remove('active-link');
-                if (link.getAttribute('href') === `#${currentSection}`) {
+                if (link.getAttribute('href') === `#${current}`) {
                     link.classList.add('active-link');
                 }
             });
-        });
 
-        // 2. SCROLL REVEAL ANIMATIONS (IntersectionObserver)
-        const observerOptions = {
-            root: null,
-            threshold: 0.12,
-            rootMargin: '0px 0px -40px 0px'
-        };
-
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    
-                    // Trigger counters if contained in target
-                    const counters = entry.target.querySelectorAll('.counter');
-                    counters.forEach(counter => runCounter(counter));
-
-                    if (entry.target.classList.contains('counter')) {
-                        runCounter(entry.target);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .counter').forEach(el => {
-            revealObserver.observe(el);
-        });
-
-        // 3. ANIMATED NUMBER COUNTERS
-        function runCounter(counterEl) {
-            if (counterEl.dataset.started) return;
-            counterEl.dataset.started = 'true';
-
-            const target = parseInt(counterEl.getAttribute('data-target'));
-            const duration = 1800;
-            const stepTime = 20;
-            const totalSteps = duration / stepTime;
-            const increment = target / totalSteps;
-            let current = 0;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    counterEl.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    counterEl.textContent = Math.ceil(current);
-                }
-            }, stepTime);
-        }
-
-        // 4. PARALLAX EFFECT FOR HERO IMAGE
-        window.addEventListener('scroll', () => {
-            const heroImg = document.getElementById('hero-img');
-            if (heroImg && window.scrollY < window.innerHeight) {
-                heroImg.style.transform = `scale(1.05) translateY(${window.scrollY * 0.2}px)`;
+            const heroBg = document.getElementById('hero-bg');
+            if (heroBg && window.scrollY < window.innerHeight) {
+                heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
             }
         });
 
-        // 5. CHATBOT FUNCTIONALITY
+        // --- 4. CHATBOT DINÁMICO ---
         const toggleBtn = document.getElementById('chatbot-toggle');
         const modal = document.getElementById('chatbot-modal');
         const closeBtn = document.getElementById('chatbot-close');
@@ -660,16 +989,16 @@
             const text = userText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
             if (text.match(/hola|buenas|saludos|que tal/)) {
-                return '¡Hola! Bienvenido al servicio de atención del Colegio Emil Friedman. ¿En qué información puedo ayudarte hoy? (Inscripciones, Música, Deportes, Ubicación...)';
+                return '¡Hola! Bienvenido al servicio de atención del Colegio Emil Friedman. ¿En qué información puedo ayudarte hoy?';
             }
             if (text.match(/entrevista|inscripcion|admision|cupo|ingreso|solicitud/)) {
-                return 'Para solicitar una entrevista de admisión, puedes hacer clic en el botón "Solicitud de Entrevista" en el menú principal o completar nuestro formulario en línea.';
+                return 'Para solicitar una entrevista de admisión, puedes hacer clic en el botón superior "Solicitud de Entrevista" y completar el formulario interactivo en esta misma página.';
             }
             if (text.match(/musica|orquesta|coro|instrumento|violin|piano|conservatorio/)) {
-                return 'En nuestra Academia de Música los estudiantes desarrollan su talento ejecutando instrumentos e integrándose a nuestros Coros, Orquestas y Ensambles desde el Kindergarten Musical.';
+                return 'En nuestra Academia de Música los estudiantes cultivan su talento ejecutando instrumentos e integrándose a Coros, Orquestas y Ensambles desde el Kindergarten Musical.';
             }
             if (text.match(/deporte|futbol|natacion|piscina|baloncesto|basquet|voleibol|ejercicio/)) {
-                return 'Ofrecemos diversas disciplinas deportivas extracurriculares y curriculares como Fútbol, Natación (en piscina propia), Baloncesto y Voleibol para el desarrollo físico e integral.';
+                return 'Ofrecemos disciplinas como Fútbol, Natación (en piscina propia), Baloncesto y Voleibol para el desarrollo físico y saludable de nuestros alumnos.';
             }
             if (text.match(/donde|ubicacion|direccion|llegar|quedan|queda|zona/)) {
                 return 'Estamos ubicados en: Calle Emil Friedman, Urb. Los Campitos Ruta A, Caracas 1080, Miranda - Venezuela.';
@@ -678,27 +1007,22 @@
                 return 'Puedes contactarnos al +58-212-976.64.75 o al +58-212-976.29.44 de Lunes a Viernes (8:00 AM a 4:00 PM). Correo: colegio@emilfriedman.com.ve';
             }
             if (text.match(/fundador|emil|elvia|historia/)) {
-                return 'El colegio fue fundado por el Maestro Emil Friedman y la Prof. Elvia Argüello, combinando la enseñanza académica con la música y el deporte.';
+                return 'El colegio fue fundado por el Maestro Emil Friedman y la Prof. Elvia Argüello, uniendo la educación académica, musical y deportiva.';
             }
-
-            return 'Gracias por tu mensaje. Para detalles específicos sobre tu consulta, te sugerimos hacer clic en "Solicitud de Entrevista" o llamar directamente al +58-212-976.64.75.';
+            return 'Gracias por escribirnos. Para detalles específicos, te sugerimos realizar una solicitud de entrevista o llamar al +58-212-976.64.75.';
         }
 
-        function processMessage(text) {
-            if (!text) return;
+        function handleSendMessage(text) {
+            if (!text.trim()) return;
 
-            // User message
             const userMsg = document.createElement('div');
-            userMsg.className = 'bg-cyanGlow/20 text-white p-3 rounded-xl max-w-[85%] self-end border border-cyanGlow/30 shadow-sm';
+            userMsg.className = 'bg-cyanGlow/20 text-white p-3 rounded-xl max-w-[85%] self-end border border-cyanGlow/30';
             userMsg.textContent = text;
             messages.appendChild(userMsg);
-
-            input.value = '';
             messages.scrollTop = messages.scrollHeight;
 
-            // Typing indicator
             const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'bg-navy text-gray-400 p-2.5 rounded-xl max-w-[45%] border border-cyanGlow/10 italic text-[11px] animate-pulse';
+            typingIndicator.className = 'bg-navy text-gray-400 p-2 rounded-xl max-w-[40%] text-xs italic border border-cyanGlow/10';
             typingIndicator.textContent = 'Escribiendo...';
             messages.appendChild(typingIndicator);
             messages.scrollTop = messages.scrollHeight;
@@ -706,7 +1030,7 @@
             setTimeout(() => {
                 typingIndicator.remove();
                 const botMsg = document.createElement('div');
-                botMsg.className = 'bg-navy text-gray-200 p-3 rounded-xl max-w-[85%] border border-cyanGlow/10 shadow-sm';
+                botMsg.className = 'bg-navy text-gray-200 p-3 rounded-xl max-w-[85%] border border-cyanGlow/10';
                 botMsg.textContent = getBotResponse(text);
                 messages.appendChild(botMsg);
                 messages.scrollTop = messages.scrollHeight;
@@ -715,12 +1039,16 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            processMessage(input.value.trim());
+            handleSendMessage(input.value);
+            input.value = '';
         });
 
-        function sendQuickMessage(msg) {
-            processMessage(msg);
-        }
+        document.querySelectorAll('.quick-ask').forEach(btn => {
+            btn.addEventListener('click', () => {
+                handleSendMessage(btn.textContent);
+            });
+        });
     </script>
+
 </body>
 </html>
